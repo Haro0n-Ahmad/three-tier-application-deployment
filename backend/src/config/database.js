@@ -21,19 +21,17 @@ const initializeDatabase = async () => {
       port: dbConfig.port,
       user: dbConfig.user,
       password: dbConfig.password,
+      database: dbConfig.database,
+      multipleStatements: false,
     });
 
-    // Create database if not exists
-    await connection.execute(`CREATE DATABASE IF NOT EXISTS \`${dbConfig.database}\``);
-    await connection.execute(`USE \`${dbConfig.database}\``);
-
     // Create todos table
-    await connection.execute(`
+    await connection.query(`
       CREATE TABLE IF NOT EXISTS todos (
         id VARCHAR(36) PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         description TEXT,
-        completed BOOLEAN DEFAULT FALSE,
+        completed TINYINT(1) DEFAULT 0,
         priority ENUM('low', 'medium', 'high') DEFAULT 'medium',
         due_date DATE,
         category VARCHAR(100) DEFAULT 'General',

@@ -3,3 +3,5 @@ node_modules/
 build/
 .DS_Store
 *.log
+temp_auto_push.bat
+temp_interactive_push.bat
